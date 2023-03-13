@@ -6,7 +6,6 @@ import 'package:onlinestoreapp/controller/Controller.dart';
 import 'package:onlinestoreapp/models/UiO.dart';
 import 'package:onlinestoreapp/pages/widgets/appbar_widget.dart';
 
-
 import '../models/catalogs/Catalog.dart';
 
 class CatalogPage extends StatefulWidget {
@@ -17,10 +16,8 @@ class CatalogPage extends StatefulWidget {
 }
 
 class _CatalogPageState extends State<CatalogPage> {
- final Controller _controller = Get.put(Controller());
-
-  // List<String> _list = ["fdb", "dfbd", "egre"];
-  // List<bool> _listEnable = [];
+  final Controller _controller = Get.put(Controller());
+List<Catalog> _filt = [];
 
   @override
   void initState() {
@@ -113,12 +110,10 @@ class _CatalogPageState extends State<CatalogPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         appBar: AppBarWidget(),
         body: Obx(() {
-          // if (_listEnable.isEmpty) {
-          //   _listEnable = List.filled(_controller.catalogs.value.length, true);
-          // }
           return Container(
               child: listViewHierarhic(context, _controller.catalogs.value));
         }));

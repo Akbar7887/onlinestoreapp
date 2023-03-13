@@ -11,6 +11,8 @@ import 'generated/l10n.dart';
 import 'models/UiO.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const MyApp());
 }
 

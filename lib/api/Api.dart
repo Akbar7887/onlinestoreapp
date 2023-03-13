@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import '../models/UiO.dart';
 
 
+
 class Api {
   Map<String, String> header = {
     'Content-Type': 'application/json',
@@ -19,10 +20,12 @@ class Api {
 
   Future<dynamic> getfirst(String url) async {
     Uri uri = Uri.parse("${UiO.url}${url}");
-    final response = await http.get(uri, headers: header);
+    var response = await http.get(uri, headers: header);
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      return jsonDecode(utf8.decode(response.bodyBytes));
+      var json =  jsonDecode(utf8.decode(response.bodyBytes)) ;
+
+       return json;
     } else {
       throw Exception("Error");
     }

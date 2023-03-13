@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:get/get.dart';
@@ -14,7 +15,7 @@ import 'ApiConnector.dart';
 
 class Controller extends GetxController {
   final api = ApiConnector();
-  Organization? organization;
+  Rx<Organization> organization = Organization().obs;
   var zero = 0.obs;
   var catalogs = <Catalog>[].obs;
   var catalogslist = <Catalog>[].obs;
@@ -30,6 +31,8 @@ class Controller extends GetxController {
   Rx<Price> price = Price().obs;
   var rate = 0.0.obs;
   var productImages = <ProductImage>[].obs;
+  Rx<String> search = ''.obs;
+
 
 
 
@@ -37,10 +40,8 @@ class Controller extends GetxController {
 
   @override
   void onInit() {
-    fetchGetAll();
-    fetchAll();
     fetchListOrganization();
-    fetchgetAll("0");
+    fetchGetAll();
 
     super.onInit();
   }
@@ -94,13 +95,7 @@ class Controller extends GetxController {
 
   fetchListOrganization() async {
     final json = await api.getfirst("organization/get");
-    Organization loadedorg = Organization.fromJson(json);
-
-    if (loadedorg != null) {
-      organization = loadedorg;
-      // notifyChildrens();
-    }
-    update();
+    this.organization.value = Organization.fromJson(json);
   }
 
   Future<dynamic?> changeObject(String url, dynamic object) async {
