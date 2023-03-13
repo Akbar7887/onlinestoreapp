@@ -1,32 +1,32 @@
-import 'package:easy_search_bar/easy_search_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class AppBarWidget extends StatefulWidget with PreferredSizeWidget {
+import '../../generated/l10n.dart';
+
+TextEditingController _seachController = TextEditingController();
+
+class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
   const AppBarWidget({Key? key}) : super(key: key);
 
   @override
-  State<AppBarWidget> createState() => _AppBarWidgetState();
-
-  @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
-}
-
-class _AppBarWidgetState extends State<AppBarWidget> {
-
-
-  // TextEditingController _seachController = TextEditingController();
-  String? searchValue;
+  Size get preferredSize => throw UnimplementedError();
 
   @override
   Widget build(BuildContext context) {
-    return EasySearchBar(
-        iconTheme: IconThemeData(color: Colors.black38),
-        title: Text("wgf"),
-        onSearch: (value) {
-          setState(() {
-            searchValue = value;
-          });
-        },
-    );
+    return AppBar(
+        title: Container(
+      width: MediaQuery.of(context).size.width,
+      height: 40,
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(5)),
+      child: TextField(
+          controller: _seachController,
+          decoration: InputDecoration(
+              labelText: S.of(context).seach_product,
+              hintText: S.of(context).seach_product,
+              prefixIcon: Icon(Icons.search),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(25.0))))),
+    ));
   }
 }

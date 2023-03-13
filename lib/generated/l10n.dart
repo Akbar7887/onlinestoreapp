@@ -89,6 +89,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Искать товары и категорий`
+  String get seach_product {
+    return Intl.message(
+      'Искать товары и категорий',
+      name: 'seach_product',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
