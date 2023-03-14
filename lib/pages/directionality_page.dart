@@ -1,17 +1,20 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
+import 'package:onlinestoreapp/controller/Controller.dart';
 import 'package:onlinestoreapp/pages/catalog_page.dart';
 import 'package:onlinestoreapp/pages/home.dart';
-import 'package:onlinestoreapp/pages/widgets/appbar_widget.dart';
-import 'package:onlinestoreapp/pages/widgets/bottomnavigationbar_body.dart';
+import 'package:onlinestoreapp/pages/product_page.dart';
 
 import '../generated/l10n.dart';
 
 PageController _controllerpage =
     PageController(viewportFraction: 1, keepPage: true);
 int page = 1;
+int currentidx = 0;
+final Controller _controller = Get.find();
 
 class DirectionalityPage extends StatelessWidget {
   const DirectionalityPage({Key? key}) : super(key: key);
@@ -24,12 +27,12 @@ class DirectionalityPage extends StatelessWidget {
           // return true if the route to be popped
           return false; // return false if you want to disable device back button click
         },
-        child: Scaffold(
+        child: Obx(()=> Scaffold(
           // appBar: AppBarWidget(),
           body: Stack(
             children: [
               PageView(
-                children: [Home(), CatalogPage(), CatalogPage()],
+                children: [Home(), CatalogPage(),  ProductPage(), Container()],
                 controller: _controllerpage,
                 pageSnapping: false,
                 physics: NeverScrollableScrollPhysics(),
@@ -39,9 +42,14 @@ class DirectionalityPage extends StatelessWidget {
                 right: 0,
                 bottom: 0,
                 child: BottomNavigationBar(
+                    currentIndex: _controller.pageidx.value,
+                    unselectedItemColor: Colors.black38,
+                    selectedItemColor: Colors.red,
                     onTap: (int i) {
-                        _controllerpage.jumpToPage(i);
+                      _controllerpage.jumpToPage(i);
+                      _controller.pageidx.value = i;
                     },
+                    selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
                     items: [
                       BottomNavigationBarItem(
                           icon: Icon(Icons.home), label: S.of(context).main),
@@ -50,11 +58,15 @@ class DirectionalityPage extends StatelessWidget {
                         label: S.of(context).seach,
                       ),
                       BottomNavigationBarItem(
+                        icon: Icon(Icons.category),
+                        label: S.of(context).product,
+                      ),
+                      BottomNavigationBarItem(
                           icon: Icon(Icons.exit_to_app_rounded), label: "Exit")
                     ]),
               ),
             ],
           ),
-        ));
+        )));
   }
 }

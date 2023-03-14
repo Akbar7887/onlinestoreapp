@@ -17,7 +17,7 @@ class CatalogPage extends StatefulWidget {
 
 class _CatalogPageState extends State<CatalogPage> {
   final Controller _controller = Get.put(Controller());
-List<Catalog> _filt = [];
+
 
   @override
   void initState() {

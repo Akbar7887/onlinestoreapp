@@ -27,6 +27,7 @@ class Controller extends GetxController {
   var products = <Product>[].obs;
   Rx<Product> product = Product().obs;
   var page = 0.obs;
+  var pageidx = 0.obs;
   var prices = <Price>[].obs;
   Rx<Price> price = Price().obs;
   var rate = 0.0.obs;
@@ -42,7 +43,7 @@ class Controller extends GetxController {
   void onInit() {
     fetchListOrganization();
     fetchGetAll();
-
+    fetchgetAll("-1");
     super.onInit();
   }
   Future<void> fetchAll() async {
