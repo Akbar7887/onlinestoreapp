@@ -24,6 +24,7 @@ class ProductPage extends StatelessWidget {
             itemCount: _controller.products.length,
             itemBuilder: (context, idx) {
               return Container(
+                // padding: EdgeInsets.all(5),
                 child: Column(
                   children: [
                     Expanded(
@@ -32,11 +33,32 @@ class ProductPage extends StatelessWidget {
                             clipBehavior: Clip.antiAliasWithSaveLayer,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
-                              side: BorderSide(color: Colors.white),
+                              side: BorderSide(color: Colors.black12),
                             ),
                             elevation: 0,
-                            child: Container())),
-                    Container(child: Text("ok"))
+                            child: Image.network(
+                              "${UiO.url}doc/productimage/download/${_controller.products.value[idx].productImages!.firstWhere((element) => element.mainimg == true).id}",
+                              errorBuilder: (
+                                BuildContext context,
+                                Object error,
+                                StackTrace? stackTrace,
+                              ) {
+                                return Icon(
+                                  Icons.photo,
+                                  color: Colors.white54,
+                                );
+                              },
+                            ))),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Container(
+                        padding: EdgeInsets.only(left: 20, right: 10),
+                        child: Text(
+                            _controller.products.value[idx].name.toString(),
+                            style: TextStyle(fontSize: 12),
+                            textAlign: TextAlign.left,
+                            overflow: TextOverflow.ellipsis))
                     // Image.network("${UiO.url}")
                   ],
                 ),
