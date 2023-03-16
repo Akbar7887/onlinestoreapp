@@ -28,6 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "product": MessageLookupByLibrary.simpleMessage("Продукты"),
         "seach": MessageLookupByLibrary.simpleMessage("Поиск"),
         "seach_product":
-            MessageLookupByLibrary.simpleMessage("Искать товары и категорий")
+            MessageLookupByLibrary.simpleMessage("Искать товары и категорий"),
+        "sum": MessageLookupByLibrary.simpleMessage("сум")
       };
 }

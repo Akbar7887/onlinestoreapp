@@ -2,6 +2,8 @@ import 'dart:collection';
 
 
 
+import 'package:onlinestoreapp/models/calculate/Price.dart';
+
 import 'Catalog.dart';
 import 'Characteristic.dart';
 import 'ProductImage.dart';
@@ -16,6 +18,7 @@ class Product {
   int? catalogId;
   List<Characteristic>? characteristics;
   Catalog? catalog;
+  List<Price>? prices;
 
   Product(
       {this.id,
@@ -25,7 +28,8 @@ class Product {
       this.active,
       this.productImages,
       this.catalogId,
-      this.characteristics});
+      this.characteristics,
+      this.prices});
 
   Product.fromJson(dynamic json) {
     id = json['id'];
@@ -46,6 +50,12 @@ class Product {
         characteristics!.add(Characteristic.fromJson(c));
       });
     }
+    if (json['prices'] != null) {
+      prices = [];
+      json['prices'].forEach((c) {
+        prices!.add(Price.fromJson(c));
+      });
+    }
     catalog =
         json['catalog'] != null ? Catalog.fromJson(json['catalog']) : null;
   }
@@ -62,6 +72,9 @@ class Product {
     }
     if (characteristics != null) {
       map['characteristics'] = characteristics!.map((v) => v.toJson()).toList();
+    }
+    if (prices != null) {
+      map['prices'] = prices!.map((v) => v.toJson()).toList();
     }
     if (this.catalog != null) {
       map['catalog'] = this.catalog!.toJson();
