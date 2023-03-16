@@ -31,15 +31,16 @@ class ProductPage extends StatelessWidget {
                       children: [
                         Container(
                             width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height / 3.5,
+                            height: MediaQuery.of(context).size.height /
+                                3.7,
                             child: Card(
                                 // semanticContainer: true,
                                 // clipBehavior: Clip.antiAliasWithSaveLayer,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
-                                  side: BorderSide(color: Colors.black12),
+                                  // side: BorderSide(color: Colors.black12),
                                 ),
-                                elevation: 0,
+                                elevation: 1,
                                 child: Container(
                                     margin: EdgeInsets.all(50),
 
@@ -67,16 +68,17 @@ class ProductPage extends StatelessWidget {
                             // flex: 1,
                             child: Container(
                                 padding: EdgeInsets.only(left: 20, right: 10),
-                                child: Text(e.name.toString(),
-                                    style: TextStyle(fontSize: 12),
-                                    textAlign: TextAlign.left,
-                                    overflow: TextOverflow.ellipsis))),
-                        SizedBox(
-                          height: 10,
-                        ),
+                                child: Text(
+                                  e.name.toString(),
+                                  style: TextStyle(fontSize: 12),
+                                  textAlign: TextAlign.left,
+                                ))),
+                        // SizedBox(
+                        //   height: 10,
+                        // ),
 
                         Container(
-                            child: Wrap(
+                            child: Column(
                           children: [
                             e.prices!.length > 1
                                 ? Container(
@@ -92,7 +94,9 @@ class ProductPage extends StatelessWidget {
                                       ),
                                       textAlign: TextAlign.left,
                                     ))
-                                : Container(),
+                                : SizedBox(
+                                    height: 20,
+                                  ),
                             Container(
                                 child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
