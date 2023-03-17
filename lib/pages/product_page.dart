@@ -150,6 +150,7 @@ class ProductPage extends StatelessWidget {
                                              fontSize: 18,
                                             fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.left,
+                                        maxLines: 2,
                                         overflow: TextOverflow.ellipsis)),
                                 Spacer(),
                                 Container(
