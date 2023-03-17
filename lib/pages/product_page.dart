@@ -68,50 +68,54 @@ class ProductPage extends StatelessWidget {
                                             child: CircularProgressIndicator(),
                                           )))),
                         Container(
-                            padding:
-                                EdgeInsets.only(left: 20, right: 10, top: 5),
+                            padding: EdgeInsets.only(
+                              left: 20,
+                              right: 10,
+                              top: 5,
+                            ),
                             child: Text(
                               e.name.toString(),
-                              // style: TextStyle(),
+                              style: TextStyle(fontSize: 16),
                               textAlign: TextAlign.left,
+                              overflow: TextOverflow.clip,
                             )),
                         Spacer(),
 
                         Container(
-                          padding: EdgeInsets.only(top: 10),
+                            padding: EdgeInsets.only(top: 10),
                             child: Row(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.only(left: 20, right: 10),
-                              alignment: Alignment.centerLeft,
-                              child: Icon(
-                                Icons.star,
-                                color: Colors.orange[200],
-                              ),
-                            ),
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                e.markuser.toString(),
-                                style: TextStyle(
-                                  color: Colors.black26,
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.only(left: 20, right: 10),
+                                  alignment: Alignment.centerLeft,
+                                  child: Icon(
+                                    Icons.star,
+                                    color: Colors.orange[200],
+                                  ),
                                 ),
-                              ),
-                            ),
-                            // SizedBox(
-                            //   width: 10,
-                            // ),
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                '(${e.marksize.toString()} ${S.of(context).mark})',
-                                style: TextStyle(
-                                  color: Colors.black26,
+                                Container(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    e.markuser.toString(),
+                                    style: TextStyle(
+                                      color: Colors.black26,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ],
-                        )),
+                                // SizedBox(
+                                //   width: 10,
+                                // ),
+                                Container(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    '(${e.marksize.toString()} ${S.of(context).mark})',
+                                    style: TextStyle(
+                                      color: Colors.black26,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )),
                         Container(
                           child: e.prices!.length > 1
                               ? Container(
@@ -143,7 +147,7 @@ class ProductPage extends StatelessWidget {
                                     child: Text(
                                         '${numberFomat.format(e.prices!.first.pricesum)} ${S.of(context).sum}',
                                         style: TextStyle(
-                                            // fontSize: 14,
+                                             fontSize: 18,
                                             fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.left,
                                         overflow: TextOverflow.ellipsis)),

@@ -6,6 +6,7 @@ import 'package:get/get_core/src/get_main.dart';
 import '../../controller/Controller.dart';
 import '../../generated/l10n.dart';
 import '../../models/catalogs/Catalog.dart';
+import '../../models/catalogs/Product.dart';
 
 TextEditingController _seachController = TextEditingController();
 final Controller _controller = Get.find();
@@ -42,28 +43,52 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
                     borderSide: BorderSide(width: 5, color: Colors.transparent),
                     borderRadius: BorderRadius.all(Radius.circular(10.0)))),
             onChanged: (value) {
-              if (value != '') {
-                getCatalogs(value, _controller.catalogs.value);
-                _controller.catalogs.value = finalList;
-                _controller.catalogs.refresh();
-              } else {
-                _controller.fetchGetAll();
+              if (_controller.pageidx.value == 1) {
+                filtrCatalogs(value, _controller.catalogs.value);
+              } else if (_controller.pageidx.value == 2) {
+                filtrProduct(value);
               }
             },
           ),
         ));
   }
 
-  getCatalogs(String value, List<Catalog> list) {
+  filtrCatalogs(String value, List<Catalog> list) {
     finalList = [];
+    if (value != '') {
+      list.forEach((element) {
+        if (element.catalogname!.toLowerCase().contains(value.toLowerCase())) {
+          finalList.add(element);
+        }
 
-    list.forEach((element) {
-      if (element.catalogname!.toLowerCase().contains(value.toLowerCase())) {
-        finalList.add(element);
-      }
-      if (element.catalogs!.isNotEmpty) {
-        getCatalogs(value, element.catalogs!);
-      }
-    });
+        if (element.catalogs!.isNotEmpty) {
+          filtrCatalogs(value, element.catalogs!);
+        }
+      });
+      _controller.catalogs.value = finalList;
+
+    } else {
+      _controller.fetchGetAll();
+    }
+    _controller.catalogs.refresh();
+  }
+
+  filtrProduct(String value) {
+    if (value.isNotEmpty) {
+      List<Product> finalList = [];
+
+      _controller.products.forEach((element) {
+        if (element.name!.toLowerCase().contains(value.toLowerCase())) {
+          finalList.add(element);
+        }
+      });
+      _controller.products.value = finalList;
+
+    } else {
+      _controller.fetchgetAll(_controller.catalog.value.id != null
+          ? _controller.catalog.value.id.toString()
+          : "-1");
+    }
+    _controller.products.refresh();
   }
 }
