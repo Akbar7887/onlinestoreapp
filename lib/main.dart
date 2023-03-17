@@ -57,6 +57,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: S.delegate.supportedLocales,
       // supportedLocales: S.delegate.supportedLocales,
       theme: ThemeData(
+        backgroundColor: Colors.white,
         textTheme: TextTheme(),
         fontFamily: UiO.font,
         appBarTheme: AppBarTheme(color: Colors.white),

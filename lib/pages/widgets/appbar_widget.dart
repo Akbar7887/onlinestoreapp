@@ -11,6 +11,7 @@ import '../../models/catalogs/Product.dart';
 TextEditingController _seachController = TextEditingController();
 final Controller _controller = Get.find();
 List<Catalog> finalList = [];
+List<Product> productList = [];
 
 class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
   const AppBarWidget({Key? key}) : super(key: key);
@@ -20,11 +21,15 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    productList = _controller.products.value;
     return AppBar(
         elevation: 0,
         title: Container(
           width: MediaQuery.of(context).size.width,
           height: 50,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.black26)),
           // color: Colors.white54,
           alignment: Alignment.center,
           child: TextField(
@@ -66,7 +71,6 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
         }
       });
       _controller.catalogs.value = finalList;
-
     } else {
       _controller.fetchGetAll();
     }
@@ -77,13 +81,17 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
     if (value.isNotEmpty) {
       List<Product> finalList = [];
 
-      _controller.products.forEach((element) {
-        if (element.name!.toLowerCase().contains(value.toLowerCase())) {
-          finalList.add(element);
-        }
-      });
-      _controller.products.value = finalList;
+      _controller.products.value = productList
+          .where((element) =>
+              element.name!.toLowerCase().contains(value.toLowerCase()))
+          .toList();
 
+      // _controller.products.value.forEach((element) {
+      //   if (element.name!.toLowerCase().contains(value.toLowerCase())) {
+      //     finalList.add(element);
+      //   }
+      // });
+      // _controller.products.value = finalList;
     } else {
       _controller.fetchgetAll(_controller.catalog.value.id != null
           ? _controller.catalog.value.id.toString()
