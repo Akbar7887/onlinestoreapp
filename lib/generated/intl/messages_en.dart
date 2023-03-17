@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "company": MessageLookupByLibrary.simpleMessage("Компанияси"),
         "exit": MessageLookupByLibrary.simpleMessage("Выход"),
         "main": MessageLookupByLibrary.simpleMessage("Главная"),
+        "mark": MessageLookupByLibrary.simpleMessage("оценка"),
         "product": MessageLookupByLibrary.simpleMessage("Продукты"),
         "seach": MessageLookupByLibrary.simpleMessage("Поиск"),
         "seach_product":

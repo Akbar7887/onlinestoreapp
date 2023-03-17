@@ -119,6 +119,16 @@ class S {
       args: [],
     );
   }
+
+  /// `оценка`
+  String get mark {
+    return Intl.message(
+      'оценка',
+      name: 'mark',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

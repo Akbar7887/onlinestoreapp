@@ -1,7 +1,5 @@
 import 'dart:collection';
 
-
-
 import 'package:onlinestoreapp/models/calculate/Price.dart';
 
 import 'Catalog.dart';
@@ -19,6 +17,8 @@ class Product {
   List<Characteristic>? characteristics;
   Catalog? catalog;
   List<Price>? prices;
+  double? markuser;
+  int? marksize;
 
   Product(
       {this.id,
@@ -29,7 +29,9 @@ class Product {
       this.productImages,
       this.catalogId,
       this.characteristics,
-      this.prices});
+      this.prices,
+      this.markuser,
+      this.marksize});
 
   Product.fromJson(dynamic json) {
     id = json['id'];
@@ -58,6 +60,8 @@ class Product {
     }
     catalog =
         json['catalog'] != null ? Catalog.fromJson(json['catalog']) : null;
+    markuser = json['markuser'];
+    marksize = json['marksize'];
   }
 
   Map<String, dynamic> toJson() {
@@ -79,6 +83,9 @@ class Product {
     if (this.catalog != null) {
       map['catalog'] = this.catalog!.toJson();
     }
+    map['markuser'] = markuser;
+    map['marksize'] = marksize;
+
     return map;
   }
 }

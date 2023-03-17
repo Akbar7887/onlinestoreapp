@@ -1,8 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:intl/intl.dart';
 import 'package:onlinestoreapp/controller/Controller.dart';
 import 'package:onlinestoreapp/models/UiO.dart';
@@ -25,14 +22,13 @@ class ProductPage extends StatelessWidget {
             crossAxisCount: 2,
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
-            childAspectRatio: 0.6,
+            childAspectRatio: 0.5,
             children: _controller.products.value
                 .map((e) => Column(
                       children: [
                         Container(
                             width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height /
-                                3.7,
+                            height: MediaQuery.of(context).size.height / 3.5,
                             child: Card(
                                 // semanticContainer: true,
                                 // clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -42,63 +38,102 @@ class ProductPage extends StatelessWidget {
                                 ),
                                 elevation: 1,
                                 child: Container(
-                                    margin: EdgeInsets.all(50),
+                                    margin: EdgeInsets.all(5),
 
                                     // width: ,
                                     // height: ,
-                                    child: Image.network(
-                                      "${UiO.url}doc/productimage/download/${e.productImages!.firstWhere((element) => element.mainimg == true).id}",
-                                      width:
-                                          MediaQuery.of(context).size.width / 3,
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              3,
-                                      errorBuilder: (
-                                        BuildContext context,
-                                        Object error,
-                                        StackTrace? stackTrace,
-                                      ) {
-                                        return Icon(
-                                          Icons.photo,
-                                          color: Colors.white54,
-                                        );
-                                      },
-                                    )))),
+                                    child: e.productImages!.isNotEmpty
+                                        ? Image.network(
+                                            "${UiO.url}doc/productimage/download/${e.productImages!.firstWhere((element) => element.mainimg == true, orElse: () => e.productImages![0]).id}",
+                                            // width: MediaQuery.of(context)
+                                            //         .size
+                                            //         .width /
+                                            //     2,
+                                            // height: MediaQuery.of(context)
+                                            //         .size
+                                            //         .height /
+                                            //     2,
+                                            errorBuilder: (
+                                              BuildContext context,
+                                              Object error,
+                                              StackTrace? stackTrace,
+                                            ) {
+                                              return Icon(
+                                                Icons.photo,
+                                                color: Colors.white54,
+                                              );
+                                            },
+                                          )
+                                        : Center(
+                                            child: CircularProgressIndicator(),
+                                          )))),
                         Container(
-                            // flex: 1,
-                            child: Container(
-                                padding: EdgeInsets.only(left: 20, right: 10),
-                                child: Text(
-                                  e.name.toString(),
-                                  style: TextStyle(fontSize: 12),
-                                  textAlign: TextAlign.left,
-                                ))),
-                        // SizedBox(
-                        //   height: 10,
-                        // ),
+                            padding:
+                                EdgeInsets.only(left: 20, right: 10, top: 5),
+                            child: Text(
+                              e.name.toString(),
+                              // style: TextStyle(),
+                              textAlign: TextAlign.left,
+                            )),
+                        Spacer(),
 
                         Container(
-                            child: Column(
+                          padding: EdgeInsets.only(top: 10),
+                            child: Row(
                           children: [
-                            e.prices!.length > 1
-                                ? Container(
-                                    alignment: Alignment.centerLeft,
-                                    padding:
-                                        EdgeInsets.only(left: 20, right: 10),
-                                    child: Text(
-                                      '${numberFomat.format(e.prices![1].pricesum)} ${S.of(context).sum}',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.black26,
-                                        decoration: TextDecoration.lineThrough,
-                                      ),
-                                      textAlign: TextAlign.left,
-                                    ))
-                                : SizedBox(
-                                    height: 20,
-                                  ),
                             Container(
-                                child: Row(
+                              padding: EdgeInsets.only(left: 20, right: 10),
+                              alignment: Alignment.centerLeft,
+                              child: Icon(
+                                Icons.star,
+                                color: Colors.orange[200],
+                              ),
+                            ),
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                e.markuser.toString(),
+                                style: TextStyle(
+                                  color: Colors.black26,
+                                ),
+                              ),
+                            ),
+                            // SizedBox(
+                            //   width: 10,
+                            // ),
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                '(${e.marksize.toString()} ${S.of(context).mark})',
+                                style: TextStyle(
+                                  color: Colors.black26,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )),
+                        Container(
+                          child: e.prices!.length > 1
+                              ? Container(
+                                  alignment: Alignment.centerLeft,
+                                  padding: EdgeInsets.only(left: 20, right: 10),
+                                  child: Text(
+                                    '${numberFomat.format(e.prices![1].pricesum)} ${S.of(context).sum}',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.black26,
+                                      decoration: TextDecoration.lineThrough,
+                                    ),
+                                    textAlign: TextAlign.left,
+                                  ))
+                              : SizedBox(
+                                  height: 10,
+                                ),
+                        ),
+                        // Spacer(),
+                        Container(
+                            alignment: Alignment.bottomCenter,
+                            child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Container(
@@ -108,7 +143,7 @@ class ProductPage extends StatelessWidget {
                                     child: Text(
                                         '${numberFomat.format(e.prices!.first.pricesum)} ${S.of(context).sum}',
                                         style: TextStyle(
-                                            fontSize: 14,
+                                            // fontSize: 14,
                                             fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.left,
                                         overflow: TextOverflow.ellipsis)),
@@ -120,16 +155,13 @@ class ProductPage extends StatelessWidget {
                                     child: IconButton(
                                       icon: Icon(
                                         Icons.add_shopping_cart,
-                                        size: 18,
+                                        // size: 18,
                                         color: Colors.blue,
                                       ),
                                       onPressed: () {},
                                     ))
                               ],
-                            ))
-                          ],
-                        ))
-                        // Image.network("${UiO.url}")
+                            )) // Image.network("${UiO.url}")
                       ],
                     ))
                 .toList(),
