@@ -8,7 +8,7 @@ class UiO{
 
   static final font = 'Play'; //sans-serif
   static final fontbold = 'PlayBold';
-  static final colorBrend = Colors.amber;
+  static final colorBrend = Colors.deepPurpleAccent;
   //static final String url = "https://dsk-webapp.azurewebsites.net/";
 
   // static final String url = '';

@@ -7,5 +7,7 @@
   "product": "Продукты",
   "sum": "сум",
   "mark": "оценка",
-  "description_goods": "Описание товара"
+  "description_goods": "Описание товара",
+  "detail": "Подробно",
+  "price": "цена:"
 }

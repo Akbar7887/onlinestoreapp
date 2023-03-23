@@ -84,7 +84,7 @@ class _ProductOnePageState extends State<ProductOnePage> {
           ),
         ),
         body: SafeArea(
-          child: Column(
+          child: ListView(
             children: [
               Container(
                   height: MediaQuery.of(context).size.height / 2,
@@ -173,6 +173,17 @@ class _ProductOnePageState extends State<ProductOnePage> {
                         height: 10,
                       ),
               ),
+              Container(
+                  padding: EdgeInsets.only(left: 20, right: 20),
+                  alignment: Alignment.centerLeft,
+                  child: Text(S.of(context).price,
+                      // style:
+                      // TextStyle(fontSize: 18, ),
+                      textAlign: TextAlign.left,
+                      overflow: TextOverflow.ellipsis)),
+              SizedBox(
+                height: 5,
+              ),
               // Spacer(),
               Container(
                   padding: EdgeInsets.only(left: 20, right: 20),
@@ -204,13 +215,30 @@ class _ProductOnePageState extends State<ProductOnePage> {
               Container(
                   padding: EdgeInsets.only(left: 20, right: 20),
                   alignment: Alignment.centerLeft,
-                  child: Text(_controller.product.value.description!,
-                      style:
-                          TextStyle(fontSize: 18),
-                      textAlign: TextAlign.justify,
-                      ))
+                  child: Text(
+                    _controller.product.value.description!,
+                    style: TextStyle(fontSize: 18),
+                    textAlign: TextAlign.justify,
+                  )),
 
-              // Image
+              Container(
+                padding: EdgeInsets.only(left: 20, right: 20),
+                alignment: Alignment.centerLeft,
+                child: TextButton(
+                    onPressed: () {},
+                    child: Row(
+                      children: [
+                        Text(
+                          S.of(context).detail,
+                          style: TextStyle(fontSize: 18, color: UiO.colorBrend),
+                        ),
+                        Icon(
+                          Icons.keyboard_arrow_right,
+                          color: UiO.colorBrend,
+                        )
+                      ],
+                    )),
+              )
             ],
           ),
         ));
