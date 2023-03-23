@@ -23,15 +23,16 @@ class _ProductOnePageState extends State<ProductOnePage> {
 
   Widget getStars() {
     return Container(
-        width: MediaQuery.of(context).size.width,
+        // width: MediaQuery.of(context).size.width,
         alignment: Alignment.centerLeft,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Expanded(
-                // flex: ,
-                // width: MediaQuery.of(context).size.width ,
+            Container(
+                // color: Colors.red,
+                width: MediaQuery.of(context).size.width /
+                    _controller.product.value.markuser!.ceil(),
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: _controller.product.value.markuser!.ceil(),
@@ -42,6 +43,7 @@ class _ProductOnePageState extends State<ProductOnePage> {
                         size: 30,
                       );
                     })),
+            SizedBox(width: 10),
             Container(
               // alignment: Alignment.centerLeft,
               child: Text(
@@ -153,43 +155,6 @@ class _ProductOnePageState extends State<ProductOnePage> {
                   height: 50,
                   child: getStars()),
 
-              // Container(
-              //     padding: EdgeInsets.only(top: 10),
-              //     child: Row(
-              //       children: [
-              //         Container(
-              //           padding: EdgeInsets.only(left: 20, right: 10),
-              //           alignment: Alignment.centerLeft,
-              //           child: Icon(
-              //             Icons.star,
-              //             color: Colors.orange[200],
-              //           ),
-              //         ),
-              //         Container(
-              //           alignment: Alignment.centerLeft,
-              //           child: Text(
-              //             _controller.product.value.markuser.toString(),
-              //             style: TextStyle(
-              //               color: Colors.black26,
-              //             ),
-              //           ),
-              //         ),
-              //         SizedBox(
-              //           width: 10,
-              //         ),
-              //         Container(
-              //           alignment: Alignment.centerLeft,
-              //           child: Text(
-              //             '(${_controller.product.value.marksize.toString()} ${S
-              //                 .of(context)
-              //                 .mark})',
-              //             style: TextStyle(
-              //               color: Colors.black26,
-              //             ),
-              //           ),
-              //         ),
-              //       ],
-              //     )),
               Container(
                 child: _controller.product.value.prices!.length > 1
                     ? Container(
@@ -210,21 +175,41 @@ class _ProductOnePageState extends State<ProductOnePage> {
               ),
               // Spacer(),
               Container(
-                  alignment: Alignment.bottomCenter,
+                  padding: EdgeInsets.only(left: 20, right: 20),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                      '${MainConstant.numberFomat.format(_controller.product.value.prices!.first.pricesum)} ${S.of(context).sum}',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.left,
+                      overflow: TextOverflow.ellipsis)),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                  padding: EdgeInsets.only(left: 20, right: 20),
+                  alignment: Alignment.centerLeft,
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                          // alignment: Alignment.centerLeft,
-                          padding: EdgeInsets.only(left: 20, right: 10),
-                          child: Text(
-                              '${MainConstant.numberFomat.format(_controller.product.value.prices!.first.pricesum)} ${S.of(context).sum}',
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.left,
-                              overflow: TextOverflow.ellipsis)),
+                      Icon(Icons.question_mark),
+                      SizedBox(width: 20),
+                      Text(S.of(context).description_goods,
+                          style: TextStyle(fontSize: 20),
+                          textAlign: TextAlign.left)
                     ],
-                  ))
+                  )),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                  padding: EdgeInsets.only(left: 20, right: 20),
+                  alignment: Alignment.centerLeft,
+                  child: Text(_controller.product.value.description!,
+                      style:
+                          TextStyle(fontSize: 18),
+                      textAlign: TextAlign.justify,
+                      ))
+
               // Image
             ],
           ),

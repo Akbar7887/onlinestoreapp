@@ -129,6 +129,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Описание товара`
+  String get description_goods {
+    return Intl.message(
+      'Описание товара',
+      name: 'description_goods',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

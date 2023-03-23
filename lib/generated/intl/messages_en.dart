@@ -23,6 +23,8 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "company": MessageLookupByLibrary.simpleMessage("Компанияси"),
+        "description_goods":
+            MessageLookupByLibrary.simpleMessage("Описание товара"),
         "exit": MessageLookupByLibrary.simpleMessage("Выход"),
         "main": MessageLookupByLibrary.simpleMessage("Главная"),
         "mark": MessageLookupByLibrary.simpleMessage("оценка"),
