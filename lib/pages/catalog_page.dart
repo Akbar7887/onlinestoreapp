@@ -26,6 +26,7 @@ class _CatalogPageState extends State<CatalogPage> {
 
   Widget listViewHierarhic(BuildContext context, List<Catalog> list) {
     return ListView.builder(
+
       itemCount: list.length,
       itemBuilder: (context, idx) {
         return Column(

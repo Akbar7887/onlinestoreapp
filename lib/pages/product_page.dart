@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:intl/intl.dart';
 import 'package:onlinestoreapp/controller/Controller.dart';
 import 'package:onlinestoreapp/models/UiO.dart';
@@ -9,12 +10,18 @@ import '../generated/l10n.dart';
 
 final Controller _controller = Get.find();
 final numberFomat = new NumberFormat("#,##0", "uz");
+late final box;
 
 class ProductPage extends StatelessWidget {
   const ProductPage({Key? key}) : super(key: key);
 
+  Future getBox() async {
+    box = await Hive.openBox('myBox');
+  }
+
   @override
   Widget build(BuildContext context) {
+    getBox();
     return Scaffold(
       appBar: AppBarWidget(),
       body: Obx(() => SafeArea(
@@ -22,7 +29,7 @@ class ProductPage extends StatelessWidget {
             crossAxisCount: 2,
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
-            childAspectRatio: 0.5,
+            childAspectRatio: 0.55,
             children: _controller.products.value
                 .map((e) => Column(
                       children: [
@@ -37,36 +44,45 @@ class ProductPage extends StatelessWidget {
                                   // side: BorderSide(color: Colors.black12),
                                 ),
                                 elevation: 1,
-                                child: Container(
-                                    margin: EdgeInsets.all(5),
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                        alignment: Alignment.topRight,
+                                        padding: EdgeInsets.all(5),
+                                        child: IconButton(
+                                          icon: Icon(
+                                            Icons.favorite_border,
+                                            color: Colors.black26,
+                                          ),
+                                          onPressed: () {
+                                            box.put("favorite", true);
+                                          },
+                                        )),
+                                    Container(
+                                        margin: EdgeInsets.all(5),
 
-                                    // width: ,
-                                    // height: ,
-                                    child: e.productImages!.isNotEmpty
-                                        ? Image.network(
-                                            "${UiO.url}doc/productimage/download/${e.productImages!.firstWhere((element) => element.mainimg == true, orElse: () => e.productImages![0]).id}",
-                                            // width: MediaQuery.of(context)
-                                            //         .size
-                                            //         .width /
-                                            //     2,
-                                            // height: MediaQuery.of(context)
-                                            //         .size
-                                            //         .height /
-                                            //     2,
-                                            errorBuilder: (
-                                              BuildContext context,
-                                              Object error,
-                                              StackTrace? stackTrace,
-                                            ) {
-                                              return Icon(
-                                                Icons.photo,
-                                                color: Colors.white54,
-                                              );
-                                            },
-                                          )
-                                        : Center(
-                                            child: CircularProgressIndicator(),
-                                          )))),
+                                        // width: ,
+                                        // height: ,
+                                        child: e.productImages!.isNotEmpty
+                                            ? Image.network(
+                                                "${UiO.url}doc/productimage/download/${e.productImages!.firstWhere((element) => element.mainimg == true, orElse: () => e.productImages![0]).id}",
+                                                errorBuilder: (
+                                                  BuildContext context,
+                                                  Object error,
+                                                  StackTrace? stackTrace,
+                                                ) {
+                                                  return Icon(
+                                                    Icons.photo,
+                                                    color: Colors.white54,
+                                                  );
+                                                },
+                                              )
+                                            : Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              )),
+                                  ],
+                                ))),
                         Container(
                             padding: EdgeInsets.only(
                               left: 20,
@@ -75,11 +91,14 @@ class ProductPage extends StatelessWidget {
                             ),
                             child: Text(
                               e.name.toString(),
-                              style: TextStyle(fontSize: 16),
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                              maxLines: 2,
                               textAlign: TextAlign.left,
-                              overflow: TextOverflow.clip,
+                              overflow: TextOverflow.ellipsis,
                             )),
-                        Spacer(),
+                        // Spacer(),
 
                         Container(
                             padding: EdgeInsets.only(top: 10),
@@ -147,10 +166,9 @@ class ProductPage extends StatelessWidget {
                                     child: Text(
                                         '${numberFomat.format(e.prices!.first.pricesum)} ${S.of(context).sum}',
                                         style: TextStyle(
-                                             fontSize: 18,
+                                            fontSize: 18,
                                             fontWeight: FontWeight.bold),
                                         textAlign: TextAlign.left,
-                                        maxLines: 2,
                                         overflow: TextOverflow.ellipsis)),
                                 Spacer(),
                                 Container(

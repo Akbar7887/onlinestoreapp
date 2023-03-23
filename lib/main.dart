@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:onlinestoreapp/pages/catalog_page.dart';
 import 'package:onlinestoreapp/pages/directionality_page.dart';
 import 'package:onlinestoreapp/pages/home.dart';
@@ -13,10 +15,11 @@ import 'controller/Controller.dart';
 import 'generated/l10n.dart';
 import 'models/UiO.dart';
 
-void main() {
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
-
+  await Hive.initFlutter();
+  await Hive.openBox('myBox');
   runApp(const MyApp());
 }
 

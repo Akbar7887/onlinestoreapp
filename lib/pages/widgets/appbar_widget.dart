@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
@@ -10,7 +11,7 @@ import '../../models/catalogs/Product.dart';
 
 TextEditingController _seachController = TextEditingController();
 final Controller _controller = Get.find();
-List<Catalog> finalList = [];
+List<Catalog> cataloglList = [];
 List<Product> productList = [];
 
 class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
@@ -22,7 +23,17 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     productList = _controller.products.value;
+    cataloglList = _controller.catalogs.value;
+
     return AppBar(
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.white,
+          // <-- SEE HERE
+          statusBarIconBrightness: Brightness.dark,
+          //<-- For Android SEE HERE (dark icons)
+          statusBarBrightness:
+              Brightness.light, //<-- For iOS SEE HERE (dark icons)
+        ),
         elevation: 0,
         title: Container(
           width: MediaQuery.of(context).size.width,
@@ -49,7 +60,7 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
                     borderRadius: BorderRadius.all(Radius.circular(10.0)))),
             onChanged: (value) {
               if (_controller.pageidx.value == 1) {
-                filtrCatalogs(value, _controller.catalogs.value);
+                filtrCatalogs(value, cataloglList);
               } else if (_controller.pageidx.value == 2) {
                 filtrProduct(value);
               }
@@ -59,18 +70,17 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
   }
 
   filtrCatalogs(String value, List<Catalog> list) {
-    finalList = [];
-    if (value != '') {
+    if (value.isNotEmpty) {
       list.forEach((element) {
         if (element.catalogname!.toLowerCase().contains(value.toLowerCase())) {
-          finalList.add(element);
+          _controller.catalogs.value.add(element);
         }
 
         if (element.catalogs!.isNotEmpty) {
           filtrCatalogs(value, element.catalogs!);
         }
       });
-      _controller.catalogs.value = finalList;
+      _controller.catalogs.value = cataloglList;
     } else {
       _controller.fetchGetAll();
     }
@@ -79,19 +89,10 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
 
   filtrProduct(String value) {
     if (value.isNotEmpty) {
-      List<Product> finalList = [];
-
       _controller.products.value = productList
           .where((element) =>
               element.name!.toLowerCase().contains(value.toLowerCase()))
           .toList();
-
-      // _controller.products.value.forEach((element) {
-      //   if (element.name!.toLowerCase().contains(value.toLowerCase())) {
-      //     finalList.add(element);
-      //   }
-      // });
-      // _controller.products.value = finalList;
     } else {
       _controller.fetchgetAll(_controller.catalog.value.id != null
           ? _controller.catalog.value.id.toString()
