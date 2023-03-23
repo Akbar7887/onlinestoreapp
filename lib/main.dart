@@ -7,6 +7,7 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:onlinestoreapp/pages/catalog_page.dart';
+import 'package:onlinestoreapp/pages/characteristic_page.dart';
 import 'package:onlinestoreapp/pages/directionality_page.dart';
 import 'package:onlinestoreapp/pages/home.dart';
 import 'package:onlinestoreapp/pages/product_one_page.dart';
@@ -78,6 +79,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/', page: () => DirectionalityPage()),
         GetPage(name: '/catalog', page: () => CatalogPage()),
         GetPage(name: '/oneproduct', page: () => ProductOnePage()),
+        GetPage(name: '/characteristic', page: () => CharacteristicPage()),
       ],
     );
   }

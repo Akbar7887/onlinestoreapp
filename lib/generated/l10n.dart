@@ -159,6 +159,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Характеристика`
+  String get characteristic {
+    return Intl.message(
+      'Характеристика',
+      name: 'characteristic',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

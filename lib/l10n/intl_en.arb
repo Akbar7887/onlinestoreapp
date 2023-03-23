@@ -9,5 +9,6 @@
   "mark": "оценка",
   "description_goods": "Описание товара",
   "detail": "Подробно",
-  "price": "цена:"
+  "price": "цена:",
+  "characteristic": "Характеристика"
 }

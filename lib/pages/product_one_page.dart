@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:onlinestoreapp/controller/Controller.dart';
+import 'package:onlinestoreapp/models/catalogs/Characteristic.dart';
 import 'package:onlinestoreapp/models/constants/main_constant.dart';
+import 'package:onlinestoreapp/pages/characteristic_page.dart';
 import 'package:onlinestoreapp/pages/widgets/appbar_widget.dart';
 
 import '../generated/l10n.dart';
@@ -225,7 +227,18 @@ class _ProductOnePageState extends State<ProductOnePage> {
                 padding: EdgeInsets.only(left: 20, right: 20),
                 alignment: Alignment.centerLeft,
                 child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _controller
+                          .getByParentId("doc/characteristic/get",
+                              _controller.product.value.id.toString())
+                          .then((value) {
+                        _controller.characteristics.value = value
+                            .map((e) => Characteristic.fromJson(e))
+                            .toList();
+
+                        Get.to(CharacteristicPage());
+                      });
+                    },
                     child: Row(
                       children: [
                         Text(

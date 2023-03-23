@@ -14,7 +14,7 @@ class Product {
   String? active;
   List<ProductImage>? productImages;
   int? catalogId;
-  List<Characteristic>? characteristics;
+  // List<Characteristic>? characteristics;
   Catalog? catalog;
   List<Price>? prices;
   double? markuser;
@@ -28,7 +28,7 @@ class Product {
       this.active,
       this.productImages,
       this.catalogId,
-      this.characteristics,
+      // this.characteristics,
       this.prices,
       this.markuser,
       this.marksize});
@@ -46,12 +46,12 @@ class Product {
       });
     }
     catalogId = json['catalogId'];
-    if (json['characteristics'] != null) {
-      characteristics = [];
-      json['characteristics'].forEach((c) {
-        characteristics!.add(Characteristic.fromJson(c));
-      });
-    }
+    // if (json['characteristics'] != null) {
+    //   characteristics = [];
+    //   json['characteristics'].forEach((c) {
+    //     characteristics!.add(Characteristic.fromJson(c));
+    //   });
+    // }
     if (json['prices'] != null) {
       prices = [];
       json['prices'].forEach((c) {
@@ -74,9 +74,9 @@ class Product {
     if (productImages != null) {
       map['productImages'] = productImages!.map((v) => v.toJson()).toList();
     }
-    if (characteristics != null) {
-      map['characteristics'] = characteristics!.map((v) => v.toJson()).toList();
-    }
+    // if (characteristics != null) {
+    //   map['characteristics'] = characteristics!.map((v) => v.toJson()).toList();
+    // }
     if (prices != null) {
       map['prices'] = prices!.map((v) => v.toJson()).toList();
     }
