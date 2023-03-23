@@ -34,6 +34,7 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
           statusBarBrightness:
               Brightness.light, //<-- For iOS SEE HERE (dark icons)
         ),
+        backgroundColor: Colors.white,
         elevation: 0,
         title: Container(
           width: MediaQuery.of(context).size.width,

@@ -9,13 +9,14 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:onlinestoreapp/pages/catalog_page.dart';
 import 'package:onlinestoreapp/pages/directionality_page.dart';
 import 'package:onlinestoreapp/pages/home.dart';
+import 'package:onlinestoreapp/pages/product_one_page.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
 import 'controller/Controller.dart';
 import 'generated/l10n.dart';
 import 'models/UiO.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
   await Hive.initFlutter();
@@ -63,7 +64,7 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.white,
         textTheme: TextTheme(),
         fontFamily: UiO.font,
-        appBarTheme: AppBarTheme(color: Colors.white),
+        // appBarTheme: AppBarTheme(color: Colors.white),
         bottomNavigationBarTheme:
             BottomNavigationBarThemeData(backgroundColor: Colors.white),
 
@@ -76,6 +77,7 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: '/', page: () => DirectionalityPage()),
         GetPage(name: '/catalog', page: () => CatalogPage()),
+        GetPage(name: '/oneproduct', page: () => ProductOnePage()),
       ],
     );
   }

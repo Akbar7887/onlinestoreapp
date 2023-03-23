@@ -4,12 +4,14 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:intl/intl.dart';
 import 'package:onlinestoreapp/controller/Controller.dart';
 import 'package:onlinestoreapp/models/UiO.dart';
+import 'package:onlinestoreapp/models/constants/main_constant.dart';
+import 'package:onlinestoreapp/pages/product_one_page.dart';
 import 'package:onlinestoreapp/pages/widgets/appbar_widget.dart';
 
 import '../generated/l10n.dart';
 
 final Controller _controller = Get.find();
-final numberFomat = new NumberFormat("#,##0", "uz");
+
 late final box;
 
 class ProductPage extends StatelessWidget {
@@ -29,9 +31,15 @@ class ProductPage extends StatelessWidget {
             crossAxisCount: 2,
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
-            childAspectRatio: 0.55,
+            childAspectRatio: 0.53,
             children: _controller.products.value
-                .map((e) => Column(
+                .map((e) => InkWell(
+                onTap: (){
+                  _controller.product.value = e;
+
+                  Get.to(ProductOnePage());
+                },
+                child: Column(
                       children: [
                         Container(
                             width: MediaQuery.of(context).size.width,
@@ -141,7 +149,7 @@ class ProductPage extends StatelessWidget {
                                   alignment: Alignment.centerLeft,
                                   padding: EdgeInsets.only(left: 20, right: 10),
                                   child: Text(
-                                    '${numberFomat.format(e.prices![1].pricesum)} ${S.of(context).sum}',
+                                    '${MainConstant.numberFomat.format(e.prices![1].pricesum)} ${S.of(context).sum}',
                                     style: TextStyle(
                                       fontSize: 14,
                                       color: Colors.black26,
@@ -164,7 +172,7 @@ class ProductPage extends StatelessWidget {
                                     padding:
                                         EdgeInsets.only(left: 20, right: 10),
                                     child: Text(
-                                        '${numberFomat.format(e.prices!.first.pricesum)} ${S.of(context).sum}',
+                                        '${MainConstant.numberFomat.format(e.prices!.first.pricesum)} ${S.of(context).sum}',
                                         style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold),
@@ -186,7 +194,7 @@ class ProductPage extends StatelessWidget {
                               ],
                             )) // Image.network("${UiO.url}")
                       ],
-                    ))
+                    )))
                 .toList(),
           ))),
     );

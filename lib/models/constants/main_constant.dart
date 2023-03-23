@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:intl/intl.dart';
 
 import '../../controller/Controller.dart';
 import '../calculate/Exchange.dart';
@@ -30,4 +31,6 @@ class MainConstant {
       _controller.rate.value = ratevalue == null ? 0 : ratevalue;
     });
   }
+
+  static final numberFomat = new NumberFormat("#,##0", "uz");
 }
