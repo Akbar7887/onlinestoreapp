@@ -48,6 +48,8 @@ class DirectionalityPage extends StatelessWidget {
                     onTap: (int i) {
                       _controllerpage.jumpToPage(i);
                       _controller.pageidx.value = i;
+
+
                     },
                     selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
                     items: [
