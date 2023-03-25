@@ -73,8 +73,9 @@ class DirectionalityPage extends StatelessWidget {
                               // alignment: Alignment.topRight,
                               children: [
                                 Icon(Icons.shopping_basket_outlined),
-                                _controller.orders.value.length > 0
-                                    ? Positioned(
+                                _controller.ordercount.value == 0
+                                    ? SizedBox()
+                                    : Positioned(
                                         right: 0,
                                         // left: 2,
                                         // bottom: 25,
@@ -92,7 +93,8 @@ class DirectionalityPage extends StatelessWidget {
                                             minHeight: 15,
                                           ),
                                           child: Text(
-                                            _controller.ordercount.value.toString(),
+                                            _controller.ordercount.value
+                                                .toString(),
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 15,
@@ -100,7 +102,6 @@ class DirectionalityPage extends StatelessWidget {
                                             textAlign: TextAlign.center,
                                           ),
                                         ))
-                                    : SizedBox(),
                               ],
                             ),
                             label: S.of(context).basket,

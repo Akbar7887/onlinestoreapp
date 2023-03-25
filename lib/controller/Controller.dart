@@ -41,52 +41,78 @@ class Controller extends GetxController {
   Rx<int> ordercount = 0.obs;
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  void refresh() {
+    super.refresh();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+  }
+
+  @override
   void onInit() {
     fetchListOrganization();
     fetchGetAll();
-    fetchgetAll("-1");
 
-    fetchAll("doc/user/get").then((value) {
-      this.users.value = value.map((e) => User.fromJson(e)).toList();
+    fetchProduct("-1");
+    fetchUser().then((value) {
       if (this.users.value.isNotEmpty) {
         this.user.value = this.users.value.first;
-        getByParentId("doc/order/getbyuser", this.user.value.id.toString())
-            .then((value) {
-          this.orders.value = value.map((e) => OrderUser.fromJson(e)).toList();
-          this.orders.value.forEach((element) =>
-              this.ordercount.value =
-              this.ordercount.value + element.quantity!.toInt());
-        });
       }
+      fetchOrder(this.user.value.id.toString());
     });
+
+    // }
 
     super.onInit();
   }
 
+  Future<List<dynamic>> fetchProduct(String id) async {
+    return await api.getByParentId("doc/product/get", id).then((value) =>
+        this.products.value = value.map((e) => Product.fromJson(e)).toList());
+  }
+
+  Future<List<User>> fetchUser() async {
+    return await api.getall("doc/user/get").then((value) =>
+        this.users.value = value.map((e) => User.fromJson(e)).toList());
+  }
+
+  Future<void> fetchOrder(String id) async {
+     await api.getByParentId("doc/order/getbyuser", id).then((value) {
+      this.orders.value = value.map((e) => OrderUser.fromJson(e)).toList();
+      this.orders.value.forEach((element) => this.ordercount.value =
+          this.ordercount.value + element.quantity!.toInt());
+    });
+  }
   Future<List<dynamic>> fetchAll(String url) async {
-    return await api.getAll(url);
+    return await api.getall(url);
   }
 
   Future<void> fetchAllExchange() async {
-    final json = await api.getAll("doc/exchange/get");
+    final json = await api.getall("doc/exchange/get");
     this.exchanges.value = json.map((e) => Exchange.fromJson(e)).toList();
   }
 
   Future<void> fetchGetAll() async {
-    final json = await api.getAll("doc/catalog/get");
+    final json = await api.getall("doc/catalog/get");
     this.catalogs.value = json.map((e) => Catalog.fromJson(e)).toList();
 
     this.catalogslist.value = <Catalog>[].obs;
     creatCatalogList(this.catalogs.value);
   }
 
-  Future<void> fetchgetAll(String id) async {
-    final json = await api.getByParentId("doc/product/get", id);
-    this.products.value = json.map((e) => Product.fromJson(e)).toList();
-  }
+  // Future<void> fetchgetAll(String id) async {
+  //   final json = await api.getByParentId("doc/product/get", id);
+  // }
 
   Future<dynamic> getRateFirst(String url, DateTime dateTime) async {
-    return await api.getRateFirst(url, dateTime);
+    return await api.getRatefirst(url, dateTime);
   }
 
   Future<List<dynamic>> getByParentId(String url, String id) async {
@@ -126,7 +152,7 @@ class Controller extends GetxController {
   }
 
   Future<bool> deleteById(url, id) async {
-    return await api.deleteById(url, id);
+    return await api.deletebyId(url, id);
   }
 
   Future<bool> deleteActive(String url, int id) async {

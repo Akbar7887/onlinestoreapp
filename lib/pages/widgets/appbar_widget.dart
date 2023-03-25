@@ -95,7 +95,7 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
               element.name!.toLowerCase().contains(value.toLowerCase()))
           .toList();
     } else {
-      _controller.fetchgetAll(_controller.catalog.value.id != null
+      _controller.getByParentId("doc/product/get",_controller.catalog.value.id != null
           ? _controller.catalog.value.id.toString()
           : "-1");
     }

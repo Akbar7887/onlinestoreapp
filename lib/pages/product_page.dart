@@ -24,6 +24,13 @@ class _ProductPageState extends State<ProductPage> {
   final Controller _controller = Get.find();
   List<Product> _list = [];
 
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   final box = Hive.box("myBox");
   var _favoritemap = Map();
 
@@ -247,7 +254,7 @@ class _ProductPageState extends State<ProductPage> {
                                   OrderUser orderuser = OrderUser();
                                   orderuser.user = _controller.user.value;
                                   orderuser.product = e;
-                                  orderuser.price = e.prices![0].price;
+                                  orderuser.price = e.prices![1].price;
                                   orderuser.quantity = 1;
                                   _controller
                                       .save("doc/order/save", orderuser)

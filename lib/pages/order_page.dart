@@ -6,6 +6,7 @@ import 'package:onlinestoreapp/controller/Controller.dart';
 import 'package:onlinestoreapp/pages/widgets/appbar_widget.dart';
 
 final Controller _controller = Get.find();
+
 class OrderPage extends StatelessWidget {
   const OrderPage({Key? key}) : super(key: key);
 
@@ -14,8 +15,17 @@ class OrderPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBarWidget(),
       body: SafeArea(
-        child: ListView(),
+        child: Obx(()=>ListView(
+          children: _controller.orders.value
+              .map((e) => Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Container(
+                    child: Text(e.user!.username!),
+                  )))
+              .toList(),
+        ),
       ),
-    );
+    ));
+
   }
 }
