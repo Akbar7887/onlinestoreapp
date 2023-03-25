@@ -12,5 +12,6 @@
   "price": "цена:",
   "characteristic": "Характеристика",
   "favorite": "Желания",
-  "my_favorite": "Мои желания"
+  "my_favorite": "Мои желания",
+  "basket": "Корзина"
 }

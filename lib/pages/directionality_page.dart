@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -9,6 +7,7 @@ import 'package:onlinestoreapp/pages/home.dart';
 import 'package:onlinestoreapp/pages/product_page.dart';
 
 import '../generated/l10n.dart';
+import 'order_page.dart';
 
 PageController _controllerpage =
     PageController(viewportFraction: 1, keepPage: true);
@@ -33,9 +32,9 @@ class DirectionalityPage extends StatelessWidget {
                 children: [
                   PageView(
                     children: [
-                      Home(),
-                      CatalogPage(),
                       ProductPage(),
+                      CatalogPage(),
+                      OrderPage(),
                       ProductPage(),
                       Container()
                     ],
@@ -47,6 +46,7 @@ class DirectionalityPage extends StatelessWidget {
                     left: 0,
                     right: 0,
                     bottom: 0,
+                    // top: 0,
                     child: BottomNavigationBar(
                         currentIndex: _controller.pageidx.value,
                         unselectedItemColor: Colors.black38,
@@ -57,6 +57,7 @@ class DirectionalityPage extends StatelessWidget {
                         },
                         showSelectedLabels: true,
                         showUnselectedLabels: true,
+                        iconSize: 40,
                         selectedLabelStyle:
                             TextStyle(fontWeight: FontWeight.bold),
                         items: [
@@ -68,8 +69,41 @@ class DirectionalityPage extends StatelessWidget {
                             label: S.of(context).seach,
                           ),
                           BottomNavigationBarItem(
-                            icon: Icon(Icons.category),
-                            label: S.of(context).product,
+                            icon: Stack(
+                              // alignment: Alignment.topRight,
+                              children: [
+                                Icon(Icons.shopping_basket_outlined),
+                                _controller.orders.value.length > 0
+                                    ? Positioned(
+                                        right: 0,
+                                        // left: 2,
+                                        // bottom: 25,
+                                        // width: 15,
+                                        // height: 15,
+                                        child: Container(
+                                          padding: EdgeInsets.all(1),
+                                          decoration: BoxDecoration(
+                                            color: Colors.black,
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                          ),
+                                          constraints: BoxConstraints(
+                                            minWidth: 15,
+                                            minHeight: 15,
+                                          ),
+                                          child: Text(
+                                            _controller.ordercount.value.toString(),
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ))
+                                    : SizedBox(),
+                              ],
+                            ),
+                            label: S.of(context).basket,
                           ),
                           BottomNavigationBarItem(
                             icon: Icon(Icons.favorite_border),

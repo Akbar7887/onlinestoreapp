@@ -6,6 +6,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:onlinestoreapp/controller/Controller.dart';
 import 'package:onlinestoreapp/models/UiO.dart';
 import 'package:onlinestoreapp/models/constants/main_constant.dart';
+import 'package:onlinestoreapp/models/orders/OrderUser.dart';
 import 'package:onlinestoreapp/pages/product_one_page.dart';
 import 'package:onlinestoreapp/pages/widgets/appbar_widget.dart';
 
@@ -202,7 +203,7 @@ class _ProductPageState extends State<ProductPage> {
                             alignment: Alignment.centerLeft,
                             padding: EdgeInsets.only(left: 20, right: 10),
                             child: Text(
-                              '${MainConstant.numberFomat.format(e.prices![1].pricesum)} ${S.of(context).sum}',
+                              '${MainConstant.numberFomat.format(e.prices![0].pricesum)} ${S.of(context).sum}',
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.black26,
@@ -242,7 +243,16 @@ class _ProductPageState extends State<ProductPage> {
                                   // size: 18,
                                   color: Colors.blue,
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  OrderUser orderuser = OrderUser();
+                                  orderuser.user = _controller.user.value;
+                                  orderuser.product = e;
+                                  orderuser.price = e.prices![0].price;
+                                  orderuser.quantity = 1;
+                                  _controller
+                                      .save("doc/order/save", orderuser)
+                                      .then((value) => print("ok"));
+                                },
                               ))
                         ],
                       ))

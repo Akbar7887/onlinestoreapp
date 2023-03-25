@@ -189,6 +189,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Корзина`
+  String get basket {
+    return Intl.message(
+      'Корзина',
+      name: 'basket',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
