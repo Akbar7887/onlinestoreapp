@@ -25,6 +25,7 @@ class Controller extends GetxController {
   var exchanges = <Exchange>[].obs;
   var exchange = Exchange().obs;
   var products = <Product>[].obs;
+  var favorites = <Product>[].obs;
   Rx<Product> product = Product().obs;
   var page = 0.obs;
   var pageidx = 0.obs;
