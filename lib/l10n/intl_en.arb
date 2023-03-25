@@ -11,5 +11,6 @@
   "detail": "Подробно",
   "price": "цена:",
   "characteristic": "Характеристика",
-  "favorite": "Желания"
+  "favorite": "Желания",
+  "my_favorite": "Мои желания"
 }

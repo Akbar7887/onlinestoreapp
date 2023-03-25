@@ -179,6 +179,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Мои желания`
+  String get my_favorite {
+    return Intl.message(
+      'Мои желания',
+      name: 'my_favorite',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

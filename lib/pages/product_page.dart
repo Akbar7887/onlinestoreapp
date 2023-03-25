@@ -27,11 +27,11 @@ class _ProductPageState extends State<ProductPage> {
   var _favoritemap = Map();
 
   refreshFavorite() {
-    _favoritemap = box.get("favorite");
-
-    if (_favoritemap.isEmpty) {
+    if (box.get("favorite") == null) {
       box.put("favorite", HashMap<int, bool>());
     }
+    _favoritemap = box.get("favorite");
+
     if (_controller.pageidx.value == 3) {
       _list = _controller.products.value
           .where((element) => _favoritemap[element.id] == true)
@@ -68,7 +68,9 @@ class _ProductPageState extends State<ProductPage> {
               },
               child: Column(
                 children: [
-                  // Container(child: Text(_favoritelist[e.id].toString())),
+                  _controller.pageidx.value == 3
+                      ? Container(child: Text(S.of(context).my_favorite))
+                      : SizedBox(),
                   Container(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height / 3.5,
