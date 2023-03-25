@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Описание товара"),
         "detail": MessageLookupByLibrary.simpleMessage("Подробно"),
         "exit": MessageLookupByLibrary.simpleMessage("Выход"),
+        "favorite": MessageLookupByLibrary.simpleMessage("Желания"),
         "main": MessageLookupByLibrary.simpleMessage("Главная"),
         "mark": MessageLookupByLibrary.simpleMessage("оценка"),
         "price": MessageLookupByLibrary.simpleMessage("цена:"),

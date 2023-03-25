@@ -10,5 +10,6 @@
   "description_goods": "Описание товара",
   "detail": "Подробно",
   "price": "цена:",
-  "characteristic": "Характеристика"
+  "characteristic": "Характеристика",
+  "favorite": "Желания"
 }

@@ -27,48 +27,61 @@ class DirectionalityPage extends StatelessWidget {
           // return true if the route to be popped
           return false; // return false if you want to disable device back button click
         },
-        child: Obx(()=> Scaffold(
-          // appBar: AppBarWidget(),
-          body: Stack(
-            children: [
-              PageView(
-                children: [Home(), CatalogPage(),  ProductPage(), Container()],
-                controller: _controllerpage,
-                pageSnapping: false,
-                physics: NeverScrollableScrollPhysics(),
+        child: Obx(() => Scaffold(
+              // appBar: AppBarWidget(),
+              body: Stack(
+                children: [
+                  PageView(
+                    children: [
+                      Home(),
+                      CatalogPage(),
+                      ProductPage(),
+                      ProductPage(),
+                      Container()
+                    ],
+                    controller: _controllerpage,
+                    pageSnapping: false,
+                    physics: NeverScrollableScrollPhysics(),
+                  ),
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    child: BottomNavigationBar(
+                        currentIndex: _controller.pageidx.value,
+                        unselectedItemColor: Colors.black38,
+                        selectedItemColor: Colors.red,
+                        onTap: (int i) {
+                          _controllerpage.jumpToPage(i);
+                          _controller.pageidx.value = i;
+                        },
+                        showSelectedLabels: true,
+                        showUnselectedLabels: true,
+                        selectedLabelStyle:
+                            TextStyle(fontWeight: FontWeight.bold),
+                        items: [
+                          BottomNavigationBarItem(
+                              icon: Icon(Icons.home),
+                              label: S.of(context).main),
+                          BottomNavigationBarItem(
+                            icon: Icon(Icons.search),
+                            label: S.of(context).seach,
+                          ),
+                          BottomNavigationBarItem(
+                            icon: Icon(Icons.category),
+                            label: S.of(context).product,
+                          ),
+                          BottomNavigationBarItem(
+                            icon: Icon(Icons.favorite_border),
+                            label: S.of(context).favorite,
+                          ),
+                          BottomNavigationBarItem(
+                              icon: Icon(Icons.exit_to_app_rounded),
+                              label: "Exit")
+                        ]),
+                  ),
+                ],
               ),
-              Positioned(
-                left: 0,
-                right: 0,
-                bottom: 0,
-                child: BottomNavigationBar(
-                    currentIndex: _controller.pageidx.value,
-                    unselectedItemColor: Colors.black38,
-                    selectedItemColor: Colors.red,
-                    onTap: (int i) {
-                      _controllerpage.jumpToPage(i);
-                      _controller.pageidx.value = i;
-
-
-                    },
-                    selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
-                    items: [
-                      BottomNavigationBarItem(
-                          icon: Icon(Icons.home), label: S.of(context).main),
-                      BottomNavigationBarItem(
-                        icon: Icon(Icons.search),
-                        label: S.of(context).seach,
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(Icons.category),
-                        label: S.of(context).product,
-                      ),
-                      BottomNavigationBarItem(
-                          icon: Icon(Icons.exit_to_app_rounded), label: "Exit")
-                    ]),
-              ),
-            ],
-          ),
-        )));
+            )));
   }
 }
