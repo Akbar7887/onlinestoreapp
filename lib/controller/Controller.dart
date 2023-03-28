@@ -64,8 +64,8 @@ class Controller extends GetxController {
     fetchUser().then((value) {
       if (this.users.value.isNotEmpty) {
         this.user.value = this.users.value.first;
+        fetchOrder(this.user.value.id.toString());
       }
-      fetchOrder(this.user.value.id.toString());
     });
 
     // }
@@ -84,7 +84,7 @@ class Controller extends GetxController {
   }
 
   Future<void> fetchOrder(String id) async {
-     await api.getByParentId("doc/order/getbyuser", id).then((value) {
+     await api.getOrder("doc/order/getbyuser", id).then((value) {
       this.orders.value = value.map((e) => OrderUser.fromJson(e)).toList();
       this.orders.value.forEach((element) => this.ordercount.value =
           this.ordercount.value + element.quantity!.toInt());

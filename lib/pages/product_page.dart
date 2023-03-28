@@ -254,7 +254,7 @@ class _ProductPageState extends State<ProductPage> {
                                   OrderUser orderuser = OrderUser();
                                   orderuser.user = _controller.user.value;
                                   orderuser.product = e;
-                                  orderuser.price = e.prices![1].price;
+                                  orderuser.price = e.prices![0].price;
                                   orderuser.quantity = 1;
                                   _controller
                                       .save("doc/order/save", orderuser)
