@@ -84,12 +84,14 @@ class Controller extends GetxController {
   }
 
   Future<void> fetchOrder(String id) async {
-     await api.getOrder("doc/order/getbyuser", id).then((value) {
+    int n = 0;
+    await api.getOrder("doc/order/getbyuser", id).then((value) {
       this.orders.value = value.map((e) => OrderUser.fromJson(e)).toList();
-      this.orders.value.forEach((element) => this.ordercount.value =
-          this.ordercount.value + element.quantity!.toInt());
+      this.orders.value.forEach((element) => n = n + element.quantity!.toInt());
     });
+    this.ordercount.value = n;
   }
+
   Future<List<dynamic>> fetchAll(String url) async {
     return await api.getall(url);
   }
