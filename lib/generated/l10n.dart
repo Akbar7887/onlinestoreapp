@@ -199,6 +199,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Кол-во`
+  String get count {
+    return Intl.message(
+      'Кол-во',
+      name: 'count',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -26,6 +26,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "characteristic":
             MessageLookupByLibrary.simpleMessage("Характеристика"),
         "company": MessageLookupByLibrary.simpleMessage("Компанияси"),
+        "count": MessageLookupByLibrary.simpleMessage("Кол-во"),
         "description_goods":
             MessageLookupByLibrary.simpleMessage("Описание товара"),
         "detail": MessageLookupByLibrary.simpleMessage("Подробно"),

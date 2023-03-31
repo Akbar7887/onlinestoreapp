@@ -13,5 +13,6 @@
   "characteristic": "Характеристика",
   "favorite": "Желания",
   "my_favorite": "Мои желания",
-  "basket": "Корзина"
+  "basket": "Корзина",
+  "count": "Кол-во"
 }
