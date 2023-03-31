@@ -162,7 +162,7 @@ class _ProductPageState extends State<ProductPage> {
                         style: TextStyle(
                           fontSize: 16,
                         ),
-                        maxLines: 2,
+                        maxLines: 4,
                         textAlign: TextAlign.left,
                         overflow: TextOverflow.ellipsis,
                       )),

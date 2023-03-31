@@ -14,5 +14,7 @@
   "favorite": "Желания",
   "my_favorite": "Мои желания",
   "basket": "Корзина",
-  "count": "Кол-во"
+  "count": "Кол-во",
+  "favorite_survive": "Перенести в избранное",
+  "delete": "Удалить"
 }

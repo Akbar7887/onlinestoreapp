@@ -27,11 +27,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Характеристика"),
         "company": MessageLookupByLibrary.simpleMessage("Компанияси"),
         "count": MessageLookupByLibrary.simpleMessage("Кол-во"),
+        "delete": MessageLookupByLibrary.simpleMessage("Удалить"),
         "description_goods":
             MessageLookupByLibrary.simpleMessage("Описание товара"),
         "detail": MessageLookupByLibrary.simpleMessage("Подробно"),
         "exit": MessageLookupByLibrary.simpleMessage("Выход"),
         "favorite": MessageLookupByLibrary.simpleMessage("Желания"),
+        "favorite_survive":
+            MessageLookupByLibrary.simpleMessage("Перенести в избранное"),
         "main": MessageLookupByLibrary.simpleMessage("Главная"),
         "mark": MessageLookupByLibrary.simpleMessage("оценка"),
         "my_favorite": MessageLookupByLibrary.simpleMessage("Мои желания"),
