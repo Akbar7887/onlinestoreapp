@@ -110,38 +110,54 @@ class OrderPage extends GetView<Controller> {
                                                       (BuildContext context) {
                                                     return Container(
                                                       padding:
-                                                          EdgeInsets.all(20),
+                                                          EdgeInsets.all(40),
                                                       child: Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        // mainAxisAlignment:
+                                                        //     MainAxisAlignment
+                                                        //         .start,
                                                         mainAxisSize:
                                                             MainAxisSize.min,
                                                         children: [
-                                                          TextButton.icon(
-                                                              onPressed: () {},
-                                                              icon: Icon(Icons
-                                                                  .favorite_border),
-                                                              label: Text(
-                                                                S
-                                                                    .of(context)
-                                                                    .favorite_survive,
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        20),
-                                                              )),
-                                                          TextButton.icon(
-                                                              onPressed: () {},
-                                                              icon: Icon(Icons
-                                                                  .delete_forever_outlined),
-                                                              label: Text(
-                                                                S
-                                                                    .of(context)
-                                                                    .delete,
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        20),
-                                                              )),
+                                                          Container(
+                                                              child: TextButton
+                                                                  .icon(
+                                                                      onPressed:
+                                                                          () {},
+                                                                      icon: Icon(
+                                                                          Icons
+                                                                              .favorite_border),
+                                                                      label:
+                                                                          Text(
+                                                                        S
+                                                                            .of(context)
+                                                                            .favorite_survive,
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                20),
+                                                                      )),
+                                                          ),
+                                                          SizedBox(height: 20,),
+                                                          Container(
+                                                              child: TextButton
+                                                                  .icon(
+                                                                      onPressed:
+                                                                          () {
+
+
+                                                                          },
+                                                                      icon: Icon(
+                                                                          Icons
+                                                                              .delete_forever_outlined),
+                                                                      label:
+                                                                          Text(
+                                                                        S
+                                                                            .of(context)
+                                                                            .delete,
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                20),
+                                                                      ))),
                                                         ],
                                                       ),
                                                     );
