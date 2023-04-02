@@ -24,9 +24,21 @@ class _CatalogPageState extends State<CatalogPage> {
     super.initState();
   }
 
-  List<Padding> childList(List<Catalog> list ){
+  void onTapRow(int idx){
+
+    if(_controller.catalogs.value[idx].catalogs!.isEmpty){
+
+      _controller.page.value = 2;
+    }
+  }
+
+  List<InkWell> childList(List<Catalog> list ){
     return list
-        .map((e) => Padding(
+        .map((e) => InkWell(
+        onTap: (){
+          onTapRow(list.indexOf(e));
+        },
+        child: Padding(
         padding: EdgeInsets.only(left: 50),
         child: ExpansionTile(
           leading: Image.network(
@@ -46,14 +58,19 @@ class _CatalogPageState extends State<CatalogPage> {
           ),
           title: Text(e.catalogname!),
           children: childList(e.catalogs!)
-        )))
+        ))))
         .toList();
   }
+
   Widget listViewHierarhic(BuildContext context, List<Catalog> list) {
     return ListView.builder(
       itemCount: list.length,
       itemBuilder: (context, idx) {
-        return Column(
+        return InkWell(
+            onTap: (){
+              onTapRow(idx);
+            },
+            child: Column(
             // decoration: BoxDecoration(
             //     border: Border(top: BorderSide(color: Colors.black))),
             children: [
@@ -84,7 +101,7 @@ class _CatalogPageState extends State<CatalogPage> {
                   // },
                   children: childList(list[idx].catalogs!)),
               Divider()
-            ]);
+            ]));
       },
     );
   }

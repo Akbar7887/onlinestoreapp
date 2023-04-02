@@ -11,7 +11,7 @@ import 'order_page.dart';
 
 PageController _controllerpage =
     PageController(viewportFraction: 1, keepPage: true);
-int page = 1;
+int page = 0;
 int currentidx = 0;
 final Controller _controller = Get.find();
 
