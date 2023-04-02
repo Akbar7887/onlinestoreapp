@@ -66,7 +66,7 @@ class _ProductPageState extends State<ProductPage> {
         crossAxisCount: 2,
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
-        childAspectRatio: 0.52,
+        childAspectRatio: 0.51,
         children: _list.map((e) {
           return InkWell(
               onTap: () {
