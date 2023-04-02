@@ -39,12 +39,12 @@ class _ProductPageState extends State<ProductPage> {
     }
     _favoritemap = box.get("favorite");
 
-    if (_controller.pageidx.value == 3) {
+    if (_controller.page.value == 3) {
       _list = _controller.products.value
           .where((element) => _favoritemap[element.id] == true)
           .toList();
       _controller.products.refresh();
-    } else if (_controller.pageidx.value == 1) {
+    } else if (_controller.page.value == 1) {
       _list = _controller.products.value
           .where(
               (element) => element.catalog!.id == _controller.catalog.value.id)
@@ -82,7 +82,7 @@ class _ProductPageState extends State<ProductPage> {
               },
               child: Column(
                 children: [
-                  _controller.pageidx.value == 3
+                  _controller.page.value == 3
                       ? Container(child: Text(S.of(context).my_favorite))
                       : SizedBox(),
                   Container(

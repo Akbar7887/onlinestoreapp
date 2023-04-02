@@ -1,10 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:onlinestoreapp/controller/Controller.dart';
 import 'package:onlinestoreapp/models/UiO.dart';
-import 'package:onlinestoreapp/pages/product_page.dart';
 import 'package:onlinestoreapp/pages/widgets/appbar_widget.dart';
 
 import '../models/catalogs/Catalog.dart';
@@ -24,9 +21,14 @@ class _CatalogPageState extends State<CatalogPage> {
     super.initState();
   }
 
-  void onTapRow(int idx) {
-    _controller.pageidx.value = 0;
-    _controller.pageidx.refresh();
+  void onTapRow(Catalog catalog) {
+    if(catalog.catalogs!.isEmpty){
+
+      _controller.catalog.value = catalog;
+      _controller.page.value = 0;
+      // _controller.page.value = 0;
+      //  _controller.page.refresh();
+    }
   }
 
   List<Padding> childList(List<Catalog> list) {
@@ -35,6 +37,9 @@ class _CatalogPageState extends State<CatalogPage> {
         Padding(
             padding: EdgeInsets.only(left: 50),
             child: ExpansionTile(
+                onExpansionChanged: (newValue) {
+                  onTapRow(e);
+                },
                 leading: Image.network(
                   "${UiO.url}doc/catalog/download/${e.id}",
                   width: 30,
@@ -63,7 +68,7 @@ class _CatalogPageState extends State<CatalogPage> {
             children: [
               ExpansionTile(
                   onExpansionChanged: (newValue) {
-                    onTapRow(idx);
+                    onTapRow(list[idx]);
                   },
                   leading: Image.network(
                     "${UiO.url}doc/catalog/download/${list[idx].id}",

@@ -60,9 +60,9 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
                     borderSide: BorderSide(width: 5, color: Colors.transparent),
                     borderRadius: BorderRadius.all(Radius.circular(10.0)))),
             onChanged: (value) {
-              if (_controller.pageidx.value == 1) {
+              if (_controller.page.value == 1) {
                 filtrCatalogs(value, cataloglList);
-              } else if (_controller.pageidx.value == 2) {
+              } else if (_controller.page.value == 2) {
                 filtrProduct(value);
               }
             },

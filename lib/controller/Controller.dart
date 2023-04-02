@@ -29,7 +29,7 @@ class Controller extends GetxController {
   var favorites = <Product>[].obs;
   Rx<Product> product = Product().obs;
   var page = 0.obs;
-  var pageidx = 0.obs;
+  // var pageidx = 0.obs;
   var prices = <Price>[].obs;
   Rx<Price> price = Price().obs;
   var rate = 0.0.obs;
