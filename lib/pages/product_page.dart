@@ -44,6 +44,11 @@ class _ProductPageState extends State<ProductPage> {
           .where((element) => _favoritemap[element.id] == true)
           .toList();
       _controller.products.refresh();
+    } else if (_controller.pageidx.value == 1) {
+      _list = _controller.products.value
+          .where(
+              (element) => element.catalog!.id == _controller.catalog.value.id)
+          .toList();
     } else {
       _list = _controller.products.value;
     }
@@ -51,8 +56,10 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   void initState() {
-    // box = Hive.box('myBox');
+    // if(_controller.pageidx.value == 3){
     refreshFavorite();
+    // }
+    // box = Hive.box('myBox');
 
     super.initState();
   }

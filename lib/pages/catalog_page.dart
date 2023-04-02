@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:onlinestoreapp/controller/Controller.dart';
 import 'package:onlinestoreapp/models/UiO.dart';
+import 'package:onlinestoreapp/pages/product_page.dart';
 import 'package:onlinestoreapp/pages/widgets/appbar_widget.dart';
 
 import '../models/catalogs/Catalog.dart';
@@ -18,47 +19,37 @@ class CatalogPage extends StatefulWidget {
 class _CatalogPageState extends State<CatalogPage> {
   final Controller _controller = Get.find();
 
-
   @override
   void initState() {
     super.initState();
   }
 
-  void onTapRow(int idx){
-
-    if(_controller.catalogs.value[idx].catalogs!.isEmpty){
-
-      _controller.page.value = 2;
-    }
+  void onTapRow(int idx) {
+    _controller.pageidx.value = 0;
+    _controller.pageidx.refresh();
   }
 
-  List<InkWell> childList(List<Catalog> list ){
+  List<Padding> childList(List<Catalog> list) {
     return list
-        .map((e) => InkWell(
-        onTap: (){
-          onTapRow(list.indexOf(e));
-        },
-        child: Padding(
-        padding: EdgeInsets.only(left: 50),
-        child: ExpansionTile(
-          leading: Image.network(
-            "${UiO.url}doc/catalog/download/${e.id}",
-            width: 30,
-            height: 30,
-            errorBuilder: (
-                BuildContext context,
-                Object error,
-                StackTrace? stackTrace,
-                ) {
-              return Icon(
-                Icons.photo,
-                color: Colors.blue,
-              );
-            },
-          ),
-          title: Text(e.catalogname!),
-          children: childList(e.catalogs!)
-        ))))
+        .map((e) =>
+        Padding(
+            padding: EdgeInsets.only(left: 50),
+            child: ExpansionTile(
+                leading: Image.network(
+                  "${UiO.url}doc/catalog/download/${e.id}",
+                  width: 30,
+                  height: 30,
+                  errorBuilder: (BuildContext context,
+                      Object error,
+                      StackTrace? stackTrace,) {
+                    return Icon(
+                      Icons.photo,
+                      color: Colors.blue,
+                    );
+                  },
+                ),
+                title: Text(e.catalogname!),
+                children: childList(e.catalogs!))))
         .toList();
   }
 
@@ -66,24 +57,27 @@ class _CatalogPageState extends State<CatalogPage> {
     return ListView.builder(
       itemCount: list.length,
       itemBuilder: (context, idx) {
-        return InkWell(
-            onTap: (){
-              onTapRow(idx);
-            },
-            child: Column(
-            // decoration: BoxDecoration(
-            //     border: Border(top: BorderSide(color: Colors.black))),
+        return Column(
+          // decoration: BoxDecoration(
+          //     border: Border(top: BorderSide(color: Colors.black))),
             children: [
               ExpansionTile(
+                  onExpansionChanged: (newValue) {
+                    onTapRow(idx);
+                  },
                   leading: Image.network(
                     "${UiO.url}doc/catalog/download/${list[idx].id}",
-                    width: MediaQuery.of(context).size.width/6,
-                    height: MediaQuery.of(context).size.height/6,
-                    errorBuilder: (
-                      BuildContext context,
-                      Object error,
-                      StackTrace? stackTrace,
-                    ) {
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width / 6,
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .height / 6,
+                    errorBuilder: (BuildContext context,
+                        Object error,
+                        StackTrace? stackTrace,) {
                       return Icon(
                         Icons.photo,
                         color: Colors.blue,
@@ -101,14 +95,13 @@ class _CatalogPageState extends State<CatalogPage> {
                   // },
                   children: childList(list[idx].catalogs!)),
               Divider()
-            ]));
+            ]);
       },
     );
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         appBar: AppBarWidget(),
         body: Obx(() {
