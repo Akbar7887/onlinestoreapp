@@ -16,7 +16,7 @@ class CatalogPage extends StatefulWidget {
 }
 
 class _CatalogPageState extends State<CatalogPage> {
-  final Controller _controller = Get.put(Controller());
+  final Controller _controller = Get.find();
 
 
   @override
@@ -36,8 +36,8 @@ class _CatalogPageState extends State<CatalogPage> {
               ExpansionTile(
                   leading: Image.network(
                     "${UiO.url}doc/catalog/download/${list[idx].id}",
-                    width: 30,
-                    height: 30,
+                    width: MediaQuery.of(context).size.width/6,
+                    height: MediaQuery.of(context).size.height/6,
                     errorBuilder: (
                       BuildContext context,
                       Object error,

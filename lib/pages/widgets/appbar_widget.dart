@@ -71,17 +71,17 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
   }
 
   filtrCatalogs(String value, List<Catalog> list) {
+    _controller.catalogs.value = [];
     if (value.isNotEmpty) {
       list.forEach((element) {
         if (element.catalogname!.toLowerCase().contains(value.toLowerCase())) {
           _controller.catalogs.value.add(element);
         }
-
         if (element.catalogs!.isNotEmpty) {
           filtrCatalogs(value, element.catalogs!);
         }
       });
-      _controller.catalogs.value = cataloglList;
+      // _controller.catalogs.value = cataloglList;
     } else {
       _controller.fetchGetAll();
     }
@@ -95,9 +95,11 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
               element.name!.toLowerCase().contains(value.toLowerCase()))
           .toList();
     } else {
-      _controller.getByParentId("doc/product/get",_controller.catalog.value.id != null
-          ? _controller.catalog.value.id.toString()
-          : "-1");
+      _controller.getByParentId(
+          "doc/product/get",
+          _controller.catalog.value.id != null
+              ? _controller.catalog.value.id.toString()
+              : "-1");
     }
     _controller.products.refresh();
   }
