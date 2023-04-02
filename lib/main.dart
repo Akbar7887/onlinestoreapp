@@ -11,6 +11,7 @@ import 'package:onlinestoreapp/pages/characteristic_page.dart';
 import 'package:onlinestoreapp/pages/directionality_page.dart';
 import 'package:onlinestoreapp/pages/home.dart';
 import 'package:onlinestoreapp/pages/product_one_page.dart';
+import 'package:onlinestoreapp/pages/product_page.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
 import 'controller/Controller.dart';
@@ -78,6 +79,8 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: '/', page: () => DirectionalityPage()),
         GetPage(name: '/catalog', page: () => CatalogPage()),
+        GetPage(name: '/product', page: () => ProductPage()),
+
         GetPage(name: '/oneproduct', page: () => ProductOnePage()),
         GetPage(name: '/characteristic', page: () => CharacteristicPage()),
       ],

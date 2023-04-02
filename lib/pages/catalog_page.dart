@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onlinestoreapp/controller/Controller.dart';
 import 'package:onlinestoreapp/models/UiO.dart';
+import 'package:onlinestoreapp/pages/product_page.dart';
 import 'package:onlinestoreapp/pages/widgets/appbar_widget.dart';
 
 import '../models/catalogs/Catalog.dart';
@@ -23,9 +24,13 @@ class _CatalogPageState extends State<CatalogPage> {
 
   void onTapRow(Catalog catalog) {
     if(catalog.catalogs!.isEmpty){
-
       _controller.catalog.value = catalog;
-      _controller.page.value = 0;
+      _controller.prductPage.value = true;
+
+      // Get.to(ProductPage());
+      //
+      // _controller.page.value = 0;
+      // _controller.pageController.value.jumpToPage(0);
       // _controller.page.value = 0;
       //  _controller.page.refresh();
     }

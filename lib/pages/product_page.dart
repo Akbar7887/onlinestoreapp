@@ -78,7 +78,7 @@ class _ProductPageState extends State<ProductPage> {
           return InkWell(
               onTap: () {
                 _controller.product.value = e;
-                Get.to(ProductOnePage());
+                 Get.to(ProductOnePage());
               },
               child: Column(
                 children: [

@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:typed_data';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:onlinestoreapp/models/orders/OrderUser.dart';
 import 'package:onlinestoreapp/models/users/User.dart';
@@ -39,6 +41,8 @@ class Controller extends GetxController {
   var users = <User>[].obs;
   var orders = <OrderUser>[].obs;
   Rx<int> ordercount = 0.obs;
+  Rx<PageController> pageController = PageController().obs;
+  Rx<bool> prductPage = false.obs;
 
   @override
   void dispose() {
@@ -57,6 +61,7 @@ class Controller extends GetxController {
 
   @override
   void onInit() {
+
     fetchListOrganization();
     fetchGetAll();
 
@@ -67,9 +72,9 @@ class Controller extends GetxController {
         fetchOrder(this.user.value.id.toString());
       }
     });
-
+    pageController.value = PageController(viewportFraction: 1, keepPage: true);
     // }
-
+    prductPage.value = false;
     super.onInit();
   }
 

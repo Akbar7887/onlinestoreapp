@@ -14,7 +14,7 @@ class OrderPage extends GetView<Controller> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Obx(() => Scaffold(
         appBar: AppBarWidget(),
         body: SafeArea(
           child: Padding(
@@ -38,14 +38,7 @@ class OrderPage extends GetView<Controller> {
                                           e.product!.productImages!.isNotEmpty
                                               ? Image.network(
                                                   "${UiO.url}doc/productimage/download/${e.product!.productImages!.firstWhere((element) => element.mainimg == true, orElse: () => e.product!.productImages![0]).id}",
-                                                  // width: MediaQuery.of(context)
-                                                  //         .size
-                                                  //         .width /
-                                                  //     5,
-                                                  // height: MediaQuery.of(context)
-                                                  //         .size
-                                                  //         .height /
-                                                  //     5,
+
                                                   errorBuilder: (
                                                     BuildContext context,
                                                     Object error,
@@ -144,7 +137,17 @@ class OrderPage extends GetView<Controller> {
                                                               child: TextButton
                                                                   .icon(
                                                                       onPressed:
-                                                                          () {},
+                                                                          () {
+                                                                        _controller
+                                                                            .deleteById("doc/order/",
+                                                                                e.id.toString())
+                                                                            .then((value)
+                                                                        {
+                                                                          _controller.orders.value.remove(e);
+
+                                                                        }
+                                                                        );
+                                                                      },
                                                                       icon: Icon(
                                                                           Icons
                                                                               .delete_forever_outlined),
@@ -269,58 +272,6 @@ class OrderPage extends GetView<Controller> {
                   .toList(),
             ),
           ),
-        ));
+        )));
   }
-
-// Future<T?> showModalBottomSheet<T>({
-//   required BuildContext context,
-//   required WidgetBuilder builder,
-//   Color? backgroundColor,
-//   double? elevation,
-//   ShapeBorder? shape,
-//   Clip? clipBehavior,
-//   BoxConstraints? constraints,
-//   Color? barrierColor,
-//   bool isScrollControlled = false,
-//   bool useRootNavigator = false,
-//   bool isDismissible = true,
-//   bool enableDrag = true,
-//   bool useSafeArea = false,
-//   RouteSettings? routeSettings,
-//   AnimationController? transitionAnimationController,
-//   Offset? anchorPoint,
-// }) {
-//   assert(context != null);
-//   assert(builder != null);
-//   assert(isScrollControlled != null);
-//   assert(useRootNavigator != null);
-//   assert(isDismissible != null);
-//   assert(enableDrag != null);
-//   assert(debugCheckHasMediaQuery(context));
-//   assert(debugCheckHasMaterialLocalizations(context));
-//
-//   final NavigatorState navigator =
-//       Navigator.of(context, rootNavigator: useRootNavigator);
-//
-//   return navigator.push(ModalBottomSheetRoute<T>(
-//     builder: builder,
-//     capturedThemes:
-//         InheritedTheme.capture(from: context, to: navigator.context),
-//     isScrollControlled: isScrollControlled,
-//     barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-//     backgroundColor: backgroundColor,
-//     elevation: elevation,
-//     shape: shape,
-//     clipBehavior: clipBehavior,
-//     constraints: constraints,
-//     isDismissible: isDismissible,
-//     modalBarrierColor:
-//         barrierColor ?? Theme.of(context).bottomSheetTheme.modalBarrierColor,
-//     enableDrag: enableDrag,
-//     settings: routeSettings,
-//     transitionAnimationController: transitionAnimationController,
-//     anchorPoint: anchorPoint,
-//     useSafeArea: useSafeArea,
-//   ));
-// }
 }
