@@ -24,9 +24,33 @@ class _CatalogPageState extends State<CatalogPage> {
     super.initState();
   }
 
+  List<Padding> childList(List<Catalog> list ){
+    return list
+        .map((e) => Padding(
+        padding: EdgeInsets.only(left: 50),
+        child: ExpansionTile(
+          leading: Image.network(
+            "${UiO.url}doc/catalog/download/${e.id}",
+            width: 30,
+            height: 30,
+            errorBuilder: (
+                BuildContext context,
+                Object error,
+                StackTrace? stackTrace,
+                ) {
+              return Icon(
+                Icons.photo,
+                color: Colors.blue,
+              );
+            },
+          ),
+          title: Text(e.catalogname!),
+          children: childList(e.catalogs!)
+        )))
+        .toList();
+  }
   Widget listViewHierarhic(BuildContext context, List<Catalog> list) {
     return ListView.builder(
-
       itemCount: list.length,
       itemBuilder: (context, idx) {
         return Column(
@@ -58,51 +82,7 @@ class _CatalogPageState extends State<CatalogPage> {
                   //     _listEnable[idx] = !_listEnable[idx];
                   //   });
                   // },
-                  children: list[idx]
-                      .catalogs!
-                      .map((e) => Padding(
-                          padding: EdgeInsets.only(left: 50),
-                          child: ExpansionTile(
-                            leading: Image.network(
-                              "${UiO.url}doc/catalog/download/${e.id}",
-                              width: 30,
-                              height: 30,
-                              errorBuilder: (
-                                BuildContext context,
-                                Object error,
-                                StackTrace? stackTrace,
-                              ) {
-                                return Icon(
-                                  Icons.photo,
-                                  color: Colors.blue,
-                                );
-                              },
-                            ),
-                            title: Text(e.catalogname!),
-                            children: e.catalogs!
-                                .map((e1) => Padding(
-                                    padding: EdgeInsets.only(left: 50),
-                                    child: ExpansionTile(
-                                      leading: Image.network(
-                                        "${UiO.url}doc/catalog/download/${e1.id}",
-                                        width: 30,
-                                        height: 30,
-                                        errorBuilder: (
-                                          BuildContext context,
-                                          Object error,
-                                          StackTrace? stackTrace,
-                                        ) {
-                                          return Icon(
-                                            Icons.photo,
-                                            color: Colors.blue,
-                                          );
-                                        },
-                                      ),
-                                      title: Text(e1.catalogname!),
-                                    )))
-                                .toList(),
-                          )))
-                      .toList()),
+                  children: childList(list[idx].catalogs!)),
               Divider()
             ]);
       },
