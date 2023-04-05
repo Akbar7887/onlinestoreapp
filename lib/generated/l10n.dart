@@ -210,6 +210,16 @@ class S {
     );
   }
 
+  /// `Количество`
+  String get quantity {
+    return Intl.message(
+      'Количество',
+      name: 'quantity',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Перенести в избранное`
   String get favorite_survive {
     return Intl.message(
