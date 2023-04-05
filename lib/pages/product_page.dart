@@ -78,7 +78,7 @@ class _ProductPageState extends State<ProductPage> {
           return InkWell(
               onTap: () {
                 _controller.product.value = e;
-                 Get.to(ProductOnePage());
+                Get.to(ProductOnePage());
               },
               child: Column(
                 children: [
@@ -133,22 +133,21 @@ class _ProductPageState extends State<ProductPage> {
                                   padding: EdgeInsets.all(5),
                                   child: IconButton(
                                     icon: Icon(
-                                      _favoritemap[e.id] == null ||
-                                              _favoritemap[e.id] == false
+                                      _favoritemap.containsKey(e.id) == false
                                           ? Icons.favorite_border
                                           : Icons.favorite,
-                                      color: _favoritemap[e.id] == null ||
-                                              _favoritemap[e.id] == false
+                                      color: !_favoritemap.containsKey(e.id)
                                           ? Colors.black26
                                           : Colors.red,
                                     ),
                                     onPressed: () {
-                                      _favoritemap.addAll({
-                                        e.id!: _favoritemap[e.id] == null ||
-                                                _favoritemap[e.id] == false
-                                            ? true
-                                            : !_favoritemap[e.id]
-                                      });
+                                      if (_favoritemap.containsKey(e.id)) {
+                                        _favoritemap.remove(e.id);
+                                      } else {
+                                        _favoritemap.addAll({
+                                          e.id!: true
+                                        });
+                                      }
 
                                       setState(() {
                                         box.put("favorite", _favoritemap);

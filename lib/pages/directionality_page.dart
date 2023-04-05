@@ -58,7 +58,7 @@ class DirectionalityPage extends GetView<Controller> {
                     },
                     showSelectedLabels: true,
                     showUnselectedLabels: true,
-                    iconSize: 40,
+                    iconSize: 30,
                     selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
                     items: [
                       BottomNavigationBarItem(

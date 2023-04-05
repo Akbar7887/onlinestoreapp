@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:onlinestoreapp/controller/Controller.dart';
 import 'package:onlinestoreapp/pages/widgets/appbar_widget.dart';
 
@@ -8,6 +9,8 @@ import '../models/UiO.dart';
 import '../models/constants/main_constant.dart';
 
 final Controller _controller = Get.find();
+final box = Hive.box("myBox");
+var _favoritemap = Map();
 
 class OrderPage extends GetView<Controller> {
   const OrderPage({Key? key}) : super(key: key);
@@ -38,7 +41,6 @@ class OrderPage extends GetView<Controller> {
                                           e.product!.productImages!.isNotEmpty
                                               ? Image.network(
                                                   "${UiO.url}doc/productimage/download/${e.product!.productImages!.firstWhere((element) => element.mainimg == true, orElse: () => e.product!.productImages![0]).id}",
-
                                                   errorBuilder: (
                                                     BuildContext context,
                                                     Object error,
@@ -118,7 +120,32 @@ class OrderPage extends GetView<Controller> {
                                                             child:
                                                                 TextButton.icon(
                                                                     onPressed:
-                                                                        () {},
+                                                                        () {
+                                                                      if (box.get(
+                                                                              "favorite") !=
+                                                                          null) {
+                                                                        _favoritemap =
+                                                                            box.get("favorite");
+                                                                        if (!_favoritemap.containsKey(e
+                                                                            .product!
+                                                                            .id)) {
+                                                                          _favoritemap
+                                                                              .addAll({
+                                                                            e.product!.id:
+                                                                                true
+                                                                          });
+                                                                        } else {
+                                                                          _favoritemap[e
+                                                                              .product!
+                                                                              .id] = true;
+                                                                        }
+                                                                        box.put(
+                                                                            "favorite",
+                                                                            _favoritemap);
+                                                                      }
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    },
                                                                     icon: Icon(Icons
                                                                         .favorite_border),
                                                                     label: Text(
@@ -139,14 +166,19 @@ class OrderPage extends GetView<Controller> {
                                                                       onPressed:
                                                                           () {
                                                                         _controller
-                                                                            .deleteById("doc/order/",
+                                                                            .deleteById("doc/order/delete",
                                                                                 e.id.toString())
-                                                                            .then((value)
-                                                                        {
-                                                                          _controller.orders.value.remove(e);
-
-                                                                        }
-                                                                        );
+                                                                            .then((value) {
+                                                                          _controller
+                                                                              .orders
+                                                                              .value
+                                                                              .remove(e);
+                                                                          _controller
+                                                                              .orders
+                                                                              .refresh();
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                        });
                                                                       },
                                                                       icon: Icon(
                                                                           Icons
@@ -164,7 +196,8 @@ class OrderPage extends GetView<Controller> {
                                                       ),
                                                     );
                                                   },
-                                                ),
+                                                ).whenComplete(
+                                                        () => print("ok")),
                                               ))
                                             ],
                                           ),
@@ -240,7 +273,8 @@ class OrderPage extends GetView<Controller> {
                                                                         right:
                                                                             10),
                                                                 child: Text(
-                                                                  '${MainConstant.numberFomat.format(e.product!.prices![0].pricesum)} ${S.of(context).sum}',
+                                                                  '${MainConstant.numberFomat.format(e.product!.prices![0].pricesum)}'
+                                                                  ' ${S.of(context).sum}',
                                                                   style:
                                                                       TextStyle(
                                                                     fontSize:
